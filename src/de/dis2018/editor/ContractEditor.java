@@ -1,6 +1,7 @@
 package de.dis2018.editor;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import de.dis2018.core.EstateService;
@@ -118,7 +119,7 @@ public class ContractEditor {
 		//If no abort: Selection of the person
 		if(wid != AppartmentSelectionMenu.BACK) {
 			//Load all persons
-			Set<Person> personen = service.getAllPersons();
+			List<Person> personen = service.getAllPersons();
 			
 			//Menu to select the person
 			PersonSelectionMenu psm = new PersonSelectionMenu("Select person for contract", personen);
@@ -158,7 +159,7 @@ public class ContractEditor {
 		//If no abort: Selection of the person
 		if(hid != AppartmentSelectionMenu.BACK) {
 			//Load all persons
-			Set<Person> personen = service.getAllPersons();
+			List<Person> personen = service.getAllPersons();
 			
 			//Menu to select the person
 			PersonSelectionMenu psm = new PersonSelectionMenu("Select person for contract", personen);

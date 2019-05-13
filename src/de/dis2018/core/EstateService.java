@@ -2,6 +2,8 @@ package de.dis2018.core;
 
 import java.util.*;
 
+import javax.persistence.EntityManager;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -23,7 +25,6 @@ import de.dis2018.data.Apartment;
  */
 public class EstateService {
     //TODO All these sets should be commented out after successful implementation.
-    private Set<Person> persons = new HashSet<Person>();
     private Set<House> houses = new HashSet<House>();
     private Set<Apartment> apartments = new HashSet<Apartment>();
     private Set<TenancyContract> tenancyContracts = new HashSet<TenancyContract>();
@@ -108,6 +109,7 @@ public class EstateService {
      */
     public void addEstateAgent(EstateAgent ea) {
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.save(ea);
         session.getTransaction().commit();
         session.close();
@@ -131,6 +133,7 @@ public class EstateService {
      */
     public void addPerson(Person p) {
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.save(p);
         session.getTransaction().commit();
         session.close();
@@ -142,7 +145,7 @@ public class EstateService {
     public List<Person> getAllPersons() {
         Session session = sessionFactory.openSession();
 
-        String hql = "FROM Person ";
+        String hql = "FROM Person";
         List<Person> results = session.createQuery(hql).list();
 
         session.close();
@@ -167,6 +170,7 @@ public class EstateService {
      */
     public void addHouse(House h) {
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.save(h);
         session.getTransaction().commit();
         session.close();
@@ -227,6 +231,7 @@ public class EstateService {
      */
     public void addApartment(Apartment a) {
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.save(a);
         session.getTransaction().commit();
         session.close();
@@ -276,9 +281,7 @@ public class EstateService {
      */
     public void deleteApartment(Apartment w) {
         Session session = sessionFactory.openSession();
-
         session.delete(w);
-
         session.close();
     }
 
@@ -290,6 +293,7 @@ public class EstateService {
      */
     public void addTenancyContract(TenancyContract tc) {
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.save(tc);
         session.getTransaction().commit();
         session.close();
@@ -302,6 +306,7 @@ public class EstateService {
      */
     public void addPurchaseContract(PurchaseContract pc) {
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.save(pc);
         session.getTransaction().commit();
         session.close();
@@ -429,9 +434,7 @@ public class EstateService {
      */
     public void deleteTenancyContract(TenancyContract tc) {
         Session session = sessionFactory.openSession();
-
         session.delete(tc);
-
         session.close();
     }
 
@@ -442,9 +445,7 @@ public class EstateService {
      */
     public void deletePurchaseContract(PurchaseContract pc) {
         Session session = sessionFactory.openSession();
-
         session.delete(pc);
-
         session.close();
     }
 
@@ -452,45 +453,27 @@ public class EstateService {
      * Adds some test data
      */
     public void addTestData() {
-        //Hibernate Session erzeugen
-        Session session = sessionFactory.openSession();
-
-        session.beginTransaction();
-
         EstateAgent m = new EstateAgent();
         m.setName("Max Mustermann");
         m.setAddress("Am Informatikum 9");
         m.setLogin("max");
         m.setPassword("max");
-
-        //TODO: This estate agent is kept in memory and the DB
+        
         this.addEstateAgent(m);
-        session.save(m);
-        session.getTransaction().commit();
-
-        session.beginTransaction();
 
         Person p1 = new Person();
         p1.setAddress("Informatikum");
         p1.setName("Mustermann");
         p1.setFirstname("Erika");
 
-
         Person p2 = new Person();
         p2.setAddress("Reeperbahn 9");
         p2.setName("Albers");
         p2.setFirstname("Hans");
-
-        session.save(p1);
-        session.save(p2);
-
-        //TODO: These persons are kept in memory and the DB
+        
         this.addPerson(p1);
         this.addPerson(p2);
-        session.getTransaction().commit();
-
-
-        session.beginTransaction();
+                
         House h = new House();
         h.setCity("Hamburg");
         h.setPostalcode(22527);
@@ -501,24 +484,18 @@ public class EstateService {
         h.setPrice(10000000);
         h.setGarden(true);
         h.setManager(m);
-
-        session.save(h);
-
-        //TODO: This house is held in memory and the DB
         this.addHouse(h);
-        session.getTransaction().commit();
-
-        // Create Hibernate Session
-        session = sessionFactory.openSession();
-        session.beginTransaction();
+       
+        Session session = sessionFactory.openSession();
         EstateAgent m2 = (EstateAgent) session.get(EstateAgent.class, m.getId());
         Set<Estate> immos = m2.getEstates();
         Iterator<Estate> it = immos.iterator();
 
         while (it.hasNext()) {
             Estate i = it.next();
-            System.out.println("Estate: " + i.getCity());
+            System.out.println("Estate " + i.getId() + ": " + i.getCity());
         }
+        
         session.close();
 
         Apartment w = new Apartment();
@@ -547,15 +524,15 @@ public class EstateService {
         w.setManager(m);
         this.addApartment(w);
 
-        PurchaseContract pc = new PurchaseContract();
-        pc.setHouse(h);
-        pc.setContractPartner(p1);
-        pc.setContractNo(9234);
-        pc.setDate(new Date(System.currentTimeMillis()));
-        pc.setPlace("Hamburg");
-        pc.setNoOfInstallments(5);
-        pc.setIntrestRate(4);
-        this.addPurchaseContract(pc);
+//        PurchaseContract pc = new PurchaseContract();
+//        pc.setHouse(h);
+//        pc.setContractPartner(p1);
+//        pc.setContractNo(9234);
+//        pc.setDate(new Date(System.currentTimeMillis()));
+//        pc.setPlace("Hamburg");
+//        pc.setNoOfInstallments(5);
+//        pc.setIntrestRate(4);
+//        this.addPurchaseContract(pc);
 
         TenancyContract tc = new TenancyContract();
         tc.setApartment(w);
@@ -567,5 +544,13 @@ public class EstateService {
         tc.setAdditionalCosts(65);
         tc.setDuration(36);
         this.addTenancyContract(tc);
+        
+//    	  deletePurchaseContract(pc);
+//        deleteHouse(h);
+//        deleteTenancyContract(tc);
+//        deleteApartment(w);
+//        deletePerson(p1);
+//        deletePerson(p2);
+//        deleteEstateAgent(m);
     }
 }

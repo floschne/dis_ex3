@@ -17,6 +17,7 @@
         <property name="connection.driver_class">org.h2.Driver</property>
         
         <!-- Server mode -->
+<!--        <property name="connection.url">jdbc:h2:tcp://localhost:9092/~/test</property>-->
         <property name="connection.url">jdbc:h2:tcp://localhost/./data/estatedb</property>
         
         <!-- Embedded in memory mode     
@@ -27,7 +28,7 @@
         <property name="connection.password"/>
 
         <!-- JDBC connection pool (use the built-in) -->
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">2</property>
 
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.DB2Dialect</property>
@@ -44,6 +45,7 @@
 		<mapping resource="de/dis2018/data/mapping/Person.hbm.xml" />
 		<mapping resource="de/dis2018/data/mapping/EstateAgent.hbm.xml" />
 		<mapping resource="de/dis2018/data/mapping/Estate.hbm.xml" />
+        <mapping resource="de/dis2018/data/mapping/Contract.hbm.xml" />
     </session-factory>
 
 </hibernate-configuration>

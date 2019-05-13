@@ -1,7 +1,7 @@
 package de.dis2018.menu;
 
 import java.util.Iterator;
-import java.util.Set;
+import java.util.List;
 
 import de.dis2018.data.EstateAgent;
 
@@ -11,10 +11,10 @@ import de.dis2018.data.EstateAgent;
 public class EstateAgentSelectionMenu extends Menu {
 	public static final int BACK = -1;
 	
-	public EstateAgentSelectionMenu(String title, Set<EstateAgent> makler) {
+	public EstateAgentSelectionMenu(String title, List<EstateAgent> list) {
 		super(title);
 		
-		Iterator<EstateAgent> it = makler.iterator();
+		Iterator<EstateAgent> it = list.iterator();
 		while(it.hasNext()) {
 			EstateAgent m = it.next();
 			addEntry(m.getName(), m.getId());
