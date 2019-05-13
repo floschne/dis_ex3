@@ -8,13 +8,13 @@ import de.dis2018.util.Helper;
  * Contract-Bean
  */
 public abstract class Contract {
+	private int id;
 	private int contractNo = -1;
 	private Date date;
 	private String place;
+	private Person contractPartner;
 	static int currentId = 0;
-	int id;
-	Person contractPartner;
-	
+
 	public Contract() {
 		this.id = currentId++;
 	}
