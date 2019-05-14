@@ -106,4 +106,17 @@ public abstract class Estate {
 
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Estate{" +
+                "id=" + id +
+                ", city='" + city + '\'' +
+                ", postalcode=" + postalcode +
+                ", street='" + street + '\'' +
+                ", streetnumber='" + streetnumber + '\'' +
+                ", squareArea=" + squareArea +
+                ", manager=" + manager +
+                '}';
+    }
 }

@@ -95,4 +95,15 @@ public class Apartment extends Estate {
 
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Apartment{" +
+                "floor=" + floor +
+                ", rent=" + rent +
+                ", rooms=" + rooms +
+                ", balcony=" + balcony +
+                ", kitchen=" + kitchen +
+                "} " + super.toString();
+    }
 }

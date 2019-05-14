@@ -2,6 +2,7 @@ package de.dis2018.editor;
 
 import de.dis2018.core.EstateService;
 import de.dis2018.data.Apartment;
+import de.dis2018.data.Estate;
 import de.dis2018.data.EstateAgent;
 import de.dis2018.data.House;
 import de.dis2018.menu.AppartmentSelectionMenu;
@@ -9,6 +10,7 @@ import de.dis2018.menu.HouseSelectionMenu;
 import de.dis2018.menu.Menu;
 import de.dis2018.util.FormUtil;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -37,6 +39,12 @@ public class EstateEditor {
         final int NEW_APPARTMENT = 3;
         final int EDIT_APPARTMENT = 4;
         final int DELETE_APPARTMENT = 5;
+
+        final int SHOW_APARTMENTS = 7;
+        final int SHOW_HOUSES = 8;
+        final int SHOW_ESTATES = 9;
+
+
         final int BACK = 6;
 
         //Estate agent management menu
@@ -48,6 +56,10 @@ public class EstateEditor {
         maklerMenu.addEntry("New Apartment", NEW_APPARTMENT);
         maklerMenu.addEntry("Edit Apartment", EDIT_APPARTMENT);
         maklerMenu.addEntry("Delete Apartment", DELETE_APPARTMENT);
+
+        maklerMenu.addEntry("Show all Apartments", SHOW_APARTMENTS);
+        maklerMenu.addEntry("Show all Houses", SHOW_HOUSES);
+        maklerMenu.addEntry("Show all Estates", SHOW_ESTATES);
 
         maklerMenu.addEntry("Back to Main Menu", BACK);
 
@@ -74,10 +86,34 @@ public class EstateEditor {
                 case DELETE_APPARTMENT:
                     deleteApartment();
                     break;
+                case SHOW_APARTMENTS:
+                    showApartments();
+                    break;
+                case SHOW_HOUSES:
+                    showHouses();
+                    break;
+                case SHOW_ESTATES:
+                    showEstates();
+                    break;
                 case BACK:
                     return;
             }
         }
+    }
+
+    private void showEstates() {
+        List<Estate> allEstates = this.service.getAllEstates();
+        allEstates.forEach(estate -> estate.toString());
+    }
+
+    private void showApartments() {
+        List<Apartment> allAparments = this.service.getAllApartments();
+        allAparments.forEach(estate -> estate.toString());
+    }
+
+    private void showHouses() {
+        List<House> allHouses = this.service.getAllHouses();
+        allHouses.forEach(estate -> estate.toString());
     }
 
     /**

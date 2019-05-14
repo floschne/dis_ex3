@@ -37,9 +37,9 @@ public class Main {
 
         //Create menu
         Menu mainMenu = new Menu("Main menu");
-        mainMenu.addEntry("Agent-Management", MENU_ESTATE);
+        mainMenu.addEntry("Agent-Management", MENU_AGENT);
         mainMenu.addEntry("Person-Management", MENU_PERSON);
-        mainMenu.addEntry("Estate-Management", MENU_AGENT);
+        mainMenu.addEntry("Estate-Management", MENU_ESTATE);
         mainMenu.addEntry("Contract-Menu", MENU_CONTRACT);
         mainMenu.addEntry("QUIT", QUIT);
 

@@ -47,8 +47,8 @@ public class EstateService {
      */
     public EstateAgent getEstateAgentByLogin(String login) {
         Session session = sessionFactory.openSession();
-        String hql = "FROM EstateAgent as estateAgent WHERE estateAgent.login = '" + login + "'";
-        List<EstateAgent> results = session.createQuery(hql).list();
+        String hql = "FROM EstateAgent ea WHERE ea.login = '" + login + "'";
+        List<EstateAgent> results = session.createQuery(hql, EstateAgent.class).list();
         assert results.size() == 1;
         session.close();
 
@@ -60,8 +60,8 @@ public class EstateService {
      */
     public List<EstateAgent> getAllEstateAgents() {
         Session session = sessionFactory.openSession();
-        String hql = "FROM EstateAgent";
-        List<EstateAgent> results = session.createQuery(hql).list();
+        String hql = "SELECT ea FROM EstateAgent ea JOIN FETCH ea.estates";
+        List<EstateAgent> results = session.createQuery(hql, EstateAgent.class).list();
         session.close();
 
         return results;
@@ -126,8 +126,47 @@ public class EstateService {
     public List<Person> getAllPersons() {
         Session session = sessionFactory.openSession();
         String hql = "FROM Person";
-        List<Person> results = session.createQuery(hql).list();
+        List<Person> results = session.createQuery(hql, Person.class).getResultList();
         session.close();
+
+        return results;
+    }
+
+    /**
+     * Returns all Houses
+     */
+    public List<House> getAllHouses() {
+        Session session = sessionFactory.openSession();
+        String hql = "SELECT h FROM House h JOIN FETCH h.manager";
+        List<House> houses = session.createQuery(hql, House.class).getResultList();
+        List<House> results = new ArrayList<>(houses);
+        session.close();
+
+        return results;
+    }
+
+    /**
+     * Returns all Apartments
+     */
+    public List<Apartment> getAllApartments() {
+        Session session = sessionFactory.openSession();
+        String hql = "SELECT a FROM Apartment a JOIN FETCH a.manager";
+        List<Apartment> apart = session.createQuery(hql, Apartment.class).getResultList();
+        List<Apartment> results = new ArrayList<>(apart);
+        session.close();
+
+        return results;
+    }
+
+
+    /**
+     * Returns all Estates
+     */
+    public List<Estate> getAllEstates() {
+        List<Estate> results = new ArrayList<>();
+
+        results.addAll(this.getAllApartments());
+        results.addAll(this.getAllHouses());
 
         return results;
     }
@@ -165,8 +204,8 @@ public class EstateService {
     public Set<House> getAllHousesForEstateAgent(EstateAgent ea) {
         Session session = sessionFactory.openSession();
         Set<House> ret = new HashSet<>();
-        String hql = "FROM Houses";
-        List<House> houses = session.createQuery(hql).list();
+        String hql = "FROM House h JOIN FETCH h.manager";
+        List<House> houses = session.createQuery(hql, House.class).list();
 
         for (House house : houses) {
             if (house.getManager().equals(ea)) {
@@ -226,8 +265,8 @@ public class EstateService {
     public Set<Apartment> getAllApartmentsForEstateAgent(EstateAgent ea) {
         Session session = sessionFactory.openSession();
         Set<Apartment> ret = new HashSet<>();
-        String hql = "FROM Apartments";
-        List<Apartment> apartments = session.createQuery(hql).list();
+        String hql = "FROM Apartment a JOIN FETCH a.manager";
+        List<Apartment> apartments = session.createQuery(hql, Apartment.class).list();
 
         for (Apartment apartment : apartments) {
             if (apartment.getManager().equals(ea)) {
@@ -333,8 +372,8 @@ public class EstateService {
     public Set<TenancyContract> getAllTenancyContractsForEstateAgent(EstateAgent ea) {
         Session session = sessionFactory.openSession();
         Set<TenancyContract> ret = new HashSet<>();
-        String hql = "FROM TenacyContract";
-        List<TenancyContract> tenancyContracts = session.createQuery(hql).list();
+        String hql = "FROM TenancyContract tc JOIN FETCH tc.apartment";
+        List<TenancyContract> tenancyContracts = session.createQuery(hql, TenancyContract.class).list();
 
         for (TenancyContract tenancyContract : tenancyContracts) {
             if (tenancyContract.getApartment().getManager().equals(ea)) {
@@ -354,8 +393,8 @@ public class EstateService {
     public Set<PurchaseContract> getAllPurchaseContractsForEstateAgent(EstateAgent ea) {
         Session session = sessionFactory.openSession();
         Set<PurchaseContract> ret = new HashSet<>();
-        String hql = "FROM PurchaseContract";
-        List<PurchaseContract> purchaseContracts = session.createQuery(hql).list();
+        String hql = "FROM PurchaseContract pc JOIN FETCH pc.contractPartner, pc.house";
+        List<PurchaseContract> purchaseContracts = session.createQuery(hql, PurchaseContract.class).list();
 
         for (PurchaseContract purchaseContract : purchaseContracts) {
             if (purchaseContract.getHouse().getManager().equals(ea)) {
@@ -375,8 +414,8 @@ public class EstateService {
     public Set<TenancyContract> getTenancyContractByEstateAgent(EstateAgent ea) {
         Session session = sessionFactory.openSession();
         Set<TenancyContract> ret = new HashSet<>();
-        String hql = "FROM TenacyContract";
-        List<TenancyContract> tenancyContracts = session.createQuery(hql).list();
+        String hql = "FROM TenancyContract tc JOIN FETCH tc.contractPartner, tc.apartment";
+        List<TenancyContract> tenancyContracts = session.createQuery(hql, TenancyContract.class).list();
 
         for (TenancyContract tenancyContract : tenancyContracts) {
             if (tenancyContract.getApartment().getId() == ea.getId()) {
@@ -396,8 +435,8 @@ public class EstateService {
     public Set<PurchaseContract> getPurchaseContractByEstateAgent(EstateAgent ea) {
         Session session = sessionFactory.openSession();
         Set<PurchaseContract> ret = new HashSet<>();
-        String hql = "FROM PurchaseContract";
-        List<PurchaseContract> purchaseContracts = session.createQuery(hql).list();
+        String hql = "FROM PurchaseContract pc JOIN FETCH pc.contractPartner, pc.house";
+        List<PurchaseContract> purchaseContracts = session.createQuery(hql, PurchaseContract.class).list();
 
         for (PurchaseContract purchaseContract : purchaseContracts) {
             if (purchaseContract.getHouse().getId() == ea.getId()) {
