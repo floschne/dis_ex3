@@ -2,8 +2,6 @@ package de.dis2018.core;
 
 import java.util.*;
 
-import javax.persistence.EntityManager;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -57,7 +55,8 @@ public class EstateService {
     public EstateAgent getEstateAgentByLogin(String login) {
         Session session = sessionFactory.openSession();
         String hql = "FROM EstateAgent as estateAgent WHERE estateAgent.login = '" + login + "'";
-        List<EstateAgent> results = session.createQuery(hql).list();
+        @SuppressWarnings("unchecked")
+		List<EstateAgent> results = session.createQuery(hql).list();
         assert results.size() == 1;
         session.close();
         
@@ -70,7 +69,8 @@ public class EstateService {
     public List<EstateAgent> getAllEstateAgents() {
         Session session = sessionFactory.openSession();
         String hql = "FROM EstateAgent";
-        List<EstateAgent> results = session.createQuery(hql).list();
+        @SuppressWarnings("unchecked")
+		List<EstateAgent> results = session.createQuery(hql).list();
         session.close();
         
         return results;
@@ -135,7 +135,8 @@ public class EstateService {
     public List<Person> getAllPersons() {
         Session session = sessionFactory.openSession();
         String hql = "FROM Person";
-        List<Person> results = session.createQuery(hql).list();
+        @SuppressWarnings("unchecked")
+		List<Person> results = session.createQuery(hql).list();
         session.close();
         
         return results;
@@ -175,7 +176,8 @@ public class EstateService {
     	Session session = sessionFactory.openSession();
         Set<House> ret = new HashSet<>();
         String hql = "FROM Houses";        
-        List<House> houses = session.createQuery(hql).list();
+        @SuppressWarnings("unchecked")
+		List<House> houses = session.createQuery(hql).list();
 
         for (House house : houses) {
         	if (house.getManager().equals(ea)) {
@@ -236,7 +238,8 @@ public class EstateService {
         Session session = sessionFactory.openSession();
         Set<Apartment> ret = new HashSet<>();
         String hql = "FROM Apartments";        
-        List<Apartment> apartments = session.createQuery(hql).list();
+        @SuppressWarnings("unchecked")
+		List<Apartment> apartments = session.createQuery(hql).list();
 
         for (Apartment apartment : apartments) {
         	if (apartment.getManager().equals(ea)) {
@@ -343,7 +346,8 @@ public class EstateService {
         Session session = sessionFactory.openSession();
         Set<TenancyContract> ret = new HashSet<>();
         String hql = "FROM TenacyContract";        
-        List<TenancyContract> tenancyContracts = session.createQuery(hql).list();
+        @SuppressWarnings("unchecked")
+		List<TenancyContract> tenancyContracts = session.createQuery(hql).list();
 
         for (TenancyContract tenancyContract : tenancyContracts) {
         	if (tenancyContract.getApartment().getManager().equals(ea)) {
@@ -364,7 +368,8 @@ public class EstateService {
         Session session = sessionFactory.openSession();
         Set<PurchaseContract> ret = new HashSet<>();
         String hql = "FROM PurchaseContract";        
-        List<PurchaseContract> purchaseContracts = session.createQuery(hql).list();
+        @SuppressWarnings("unchecked")
+		List<PurchaseContract> purchaseContracts = session.createQuery(hql).list();
 
         for (PurchaseContract purchaseContract : purchaseContracts) {
         	if (purchaseContract.getHouse().getManager().equals(ea)) {
@@ -385,7 +390,8 @@ public class EstateService {
         Session session = sessionFactory.openSession();
         Set<TenancyContract> ret = new HashSet<>();
         String hql = "FROM TenacyContract";        
-        List<TenancyContract> tenancyContracts = session.createQuery(hql).list();
+        @SuppressWarnings("unchecked")
+		List<TenancyContract> tenancyContracts = session.createQuery(hql).list();
 
         for (TenancyContract tenancyContract : tenancyContracts) {
         	if (tenancyContract.getApartment().getId() == ea.getId()) {
@@ -406,7 +412,8 @@ public class EstateService {
         Session session = sessionFactory.openSession();
         Set<PurchaseContract> ret = new HashSet<>();
         String hql = "FROM PurchaseContract";        
-        List<PurchaseContract> purchaseContracts = session.createQuery(hql).list();
+        @SuppressWarnings("unchecked")
+		List<PurchaseContract> purchaseContracts = session.createQuery(hql).list();
 
         for (PurchaseContract purchaseContract : purchaseContracts) {
         	if (purchaseContract.getHouse().getId() == ea.getId()) {
