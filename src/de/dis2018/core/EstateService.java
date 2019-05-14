@@ -215,6 +215,8 @@ public class EstateService {
             }
         }
 
+        session.close();
+
         return ret;
     }
 
@@ -275,6 +277,7 @@ public class EstateService {
                 ret.add(apartment);
             }
         }
+        session.close();
 
         return ret;
     }
@@ -382,6 +385,7 @@ public class EstateService {
                 ret.add(tenancyContract);
             }
         }
+        session.close();
 
         return ret;
     }
@@ -403,6 +407,7 @@ public class EstateService {
                 ret.add(purchaseContract);
             }
         }
+        session.close();
 
         return ret;
     }
@@ -424,6 +429,7 @@ public class EstateService {
                 ret.add(tenancyContract);
             }
         }
+        session.close();
 
         return ret;
     }
@@ -445,6 +451,7 @@ public class EstateService {
                 ret.add(purchaseContract);
             }
         }
+        session.close();
 
         return ret;
     }
