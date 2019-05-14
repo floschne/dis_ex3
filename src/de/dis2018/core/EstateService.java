@@ -1,6 +1,8 @@
 package de.dis2018.core;
 
 import de.dis2018.data.*;
+import java.util.*;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
