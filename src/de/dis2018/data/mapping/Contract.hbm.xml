@@ -10,7 +10,7 @@
         <property name="contractNo" type="integer" column="contractNo"/>
         <property name="date" type="date" column="date"/>
         <property name="place" type="string" column="place"/>
-        <many-to-one name="contractPartner" class="de.dis2018.data.Person" column="contractPartner" not-null="true"/>
+        <many-to-one name="contractPartner" class="de.dis2018.data.Person" column="contractPartner" not-null="true" lazy="false"/>
 
         <union-subclass name="de.dis2018.data.PurchaseContract" table="PurchaseContract">
             <property name="noOfInstallments" type="integer" column="noOfInstallments"/>

@@ -1,0 +1,6 @@
+2019-05-14 13:05:19 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "ESTATE" not found; SQL statement:
+SELECT * FROM ESTATE [42102-196]
+2019-05-15 10:37:22 jdbc[24]: exception
+org.h2.jdbc.JdbcSQLException: Table "CONTRACT" not found; SQL statement:
+SELECT * FROM CONTRACT [42102-196]

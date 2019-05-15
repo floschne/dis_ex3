@@ -399,7 +399,7 @@ public class EstateService {
     public Set<PurchaseContract> getAllPurchaseContractsForEstateAgent(EstateAgent ea) {
         Session session = sessionFactory.openSession();
         Set<PurchaseContract> ret = new HashSet<>();
-        String hql = "FROM PurchaseContract pc JOIN FETCH pc.contractPartner, pc.house";
+        String hql = "FROM PurchaseContract pc JOIN FETCH pc.contractPartner JOIN FETCH pc.house";
         List<PurchaseContract> purchaseContracts = session.createQuery(hql, PurchaseContract.class).list();
 
         for (PurchaseContract purchaseContract : purchaseContracts) {
