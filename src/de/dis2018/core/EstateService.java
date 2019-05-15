@@ -105,7 +105,9 @@ public class EstateService {
      */
     public void deleteEstateAgent(EstateAgent ea) {
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.delete(ea);
+        session.getTransaction().commit();
         session.close();
     }
 
@@ -180,7 +182,9 @@ public class EstateService {
      */
     public void deletePerson(Person p) {
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.delete(p);
+        session.getTransaction().commit();
         session.close();
     }
 
@@ -243,7 +247,9 @@ public class EstateService {
      */
     public void deleteHouse(House h) {
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.delete(h);
+        session.getTransaction().commit();
         session.close();
     }
 
@@ -305,7 +311,9 @@ public class EstateService {
      */
     public void deleteApartment(Apartment w) {
         Session session = sessionFactory.openSession();
+        session.beginTransaction();
         session.delete(w);
+        session.getTransaction().commit();
         session.close();
     }
 
@@ -464,7 +472,9 @@ public class EstateService {
      */
     public void deleteTenancyContract(TenancyContract tc) {
         Session session = sessionFactory.openSession();
+        session.getTransaction();
         session.delete(tc);
+        session.getTransaction().commit();
         session.close();
     }
 
@@ -475,7 +485,9 @@ public class EstateService {
      */
     public void deletePurchaseContract(PurchaseContract pc) {
         Session session = sessionFactory.openSession();
+        session.getTransaction();
         session.delete(pc);
+        session.getTransaction().commit();
         session.close();
     }
 

@@ -55,7 +55,7 @@ public class Main {
             int response = mainMenu.show();
 
             switch (response) {
-                case MENU_ESTATE:
+                case MENU_AGENT:
                     if (pfa.authenticate()) {
                         EstateAgentEditor me = new EstateAgentEditor(service);
                         me.showEstateAgentMenu();
@@ -67,7 +67,7 @@ public class Main {
                         pe.showPersonMenu();
                     }
                     break;
-                case MENU_AGENT:
+                case MENU_ESTATE:
                     if (ma.authenticate()) {
                         EstateEditor ie = new EstateEditor(service, ma.getLastAuthenticatedEstateAgent());
                         ie.showEstateMenu();

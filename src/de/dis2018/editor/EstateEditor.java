@@ -103,17 +103,17 @@ public class EstateEditor {
 
     private void showEstates() {
         List<Estate> allEstates = this.service.getAllEstates();
-        allEstates.forEach(estate -> estate.toString());
+        allEstates.forEach(estate -> System.out.println(estate.toString()));
     }
 
     private void showApartments() {
         List<Apartment> allAparments = this.service.getAllApartments();
-        allAparments.forEach(estate -> estate.toString());
+        allAparments.forEach(estate -> System.out.println(estate.toString()));
     }
 
     private void showHouses() {
         List<House> allHouses = this.service.getAllHouses();
-        allHouses.forEach(estate -> estate.toString());
+        allHouses.forEach(estate -> System.out.println(estate.toString()));
     }
 
     /**
